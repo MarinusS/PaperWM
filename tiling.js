@@ -5362,6 +5362,10 @@ export function selectUpSpace(mw, space, fromAllMonitors) {
     spaces.selectSequenceSpace(Meta.MotionDirection.UP, false, fromAllMonitors);
 }
 
+export function selectNthWorkspace(mw, space, n) {
+    console.log("Select Nth Workspaced with n = " + n);
+}
+
 export function switchDownOrElseWorkspace(mw, space) {
     if (!space.switchDown(false))
         selectDownSpace(mw, space, false);

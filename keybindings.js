@@ -168,6 +168,16 @@ export function setupActions(settings) {
     registerNavigatorAction('switch-up-workspace-from-all-monitors', (mw, space) => {
         Tiling.selectUpSpace(mw, space, true);
     });
+    registerNavigatorAction('switch-first-workspace', (mw, space) => Tiling.selectNthWorkspace(mw, space, 0));
+    registerNavigatorAction('switch-second-workspace', (mw, space) => Tiling.selectNthWorkspace(mw, space, 1));
+    registerNavigatorAction('switch-third-workspace', (mw, space) => Tiling.selectNthWorkspace(mw, space, 2));
+    registerNavigatorAction('switch-fourth-workspace', (mw, space) => Tiling.selectNthWorkspace(mw, space, 3));
+    registerNavigatorAction('switch-fifth-workspace', (mw, space) => Tiling.selectNthWorkspace(mw, space, 4));
+    registerNavigatorAction('switch-sixth-workspace', (mw, space) => Tiling.selectNthWorkspace(mw, space, 5));
+    registerNavigatorAction('switch-seventh-workspace', (mw, space) => Tiling.selectNthWorkspace(mw, space, 6));
+    registerNavigatorAction('switch-eighth-workspace', (mw, space) => Tiling.selectNthWorkspace(mw, space, 7));
+    registerNavigatorAction('switch-ninth-workspace', (mw, space) => Tiling.selectNthWorkspace(mw, space, 8));
+    registerNavigatorAction('switch-tenth-workspace', (mw, space) => Tiling.selectNthWorkspace(mw, space, 9));
 
     registerNavigatorAction('move-down-workspace', Tiling.moveDownSpace);
     registerNavigatorAction('move-up-workspace', Tiling.moveUpSpace);

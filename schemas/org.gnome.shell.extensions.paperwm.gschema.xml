@@ -65,6 +65,47 @@
       <summary>Switch to workspace above (ws from all monitors)</summary>
     </key>
 
+    <key type="as" name="switch-first-workspace">
+      <default><![CDATA[[]]]></default>
+      <summary>Switch to first workspace</summary>
+    </key>
+    <key type="as" name="switch-second-workspace">
+        <default><![CDATA[[]]]></default>
+        <summary>Switch to the second workspace</summary>
+    </key>
+    <key type="as" name="switch-third-workspace">
+        <default><![CDATA[[]]]></default>
+        <summary>Switch to the third workspace</summary>
+    </key>
+    <key type="as" name="switch-fourth-workspace">
+        <default><![CDATA[[]]]></default>
+        <summary>Switch to the fourth workspace</summary>
+    </key>
+    <key type="as" name="switch-fifth-workspace">
+        <default><![CDATA[[]]]></default>
+        <summary>Switch to the fifth workspace</summary>
+    </key>
+    <key type="as" name="switch-sixth-workspace">
+        <default><![CDATA[[]]]></default>
+        <summary>Switch to the sixth workspace</summary>
+    </key>
+    <key type="as" name="switch-seventh-workspace">
+        <default><![CDATA[[]]]></default>
+        <summary>Switch to the seventh workspace</summary>
+    </key>
+    <key type="as" name="switch-eighth-workspace">
+        <default><![CDATA[[]]]></default>
+        <summary>Switch to the eighth workspace</summary>
+    </key>
+    <key type="as" name="switch-ninth-workspace">
+        <default><![CDATA[[]]]></default>
+        <summary>Switch to the ninth workspace</summary>
+    </key>
+    <key type="as" name="switch-tenth-workspace">
+        <default><![CDATA[[]]]></default>
+        <summary>Switch to the tenth workspace</summary>
+    </key>
+
     <key type="as" name="move-down-workspace">
       <default><![CDATA[['<Super><Ctrl>Page_Down']]]></default>
       <summary>Move window one workspace down</summary>
