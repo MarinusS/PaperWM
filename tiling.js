@@ -2950,84 +2950,12 @@ export const Spaces = class Spaces extends Map {
         });
     }
 
-    jumpToNthWorksapce(wm, to, move) {
-        // if in stack preview do not run sequence preview
+    jumpToNthWorksapce(to) {
         let currentSpace = this.activeSpace;
         let monitorSpaces;
         monitorSpaces = this._getOrderedSpacesFromAllMonitors(currentSpace.monitor);
         let from = monitorSpaces.indexOf(this.selectedSpace);
-        this.switchWorkspace(wm, from, to, true)
-
-        return;
-
-        //if (inPreview === PreviewMode.STACK) {
-        //    return;
-        //}
-
-        //let currentSpace = this.activeSpace;
-        //let monitorSpaces;
-        //monitorSpaces = this._getOrderedSpacesFromAllMonitors(currentSpace.monitor);
-        //let from = monitorSpaces.indexOf(this.selectedSpace);
-        //let newSpace = this.selectedSpace;
-       
-        //if (move && this.selectedSpace.selectedWindow) {
-        //    const navigator = Navigator.getNavigator();
-        //    if (!navigator._moving ||
-        //        (Array.isArray(navigator._moving) && navigator._moving.length === 0)) {
-        //        takeWindow(this.selectedSpace.selectedWindow,
-        //            this.selectedSpace,
-        //            { navigator });
-        //    }
-        //}
-
-        //if (to < 0 || to >= monitorSpaces.length) {
-        //    return;
-        //}
-
-        //if (to === from && Easer.isEasing(newSpace.actor)) {
-        //    return;
-        //}
-
-        //if (!inPreview) {
-        //    this.initWorkspaceSequence();
-        //}
-
-        //newSpace = monitorSpaces[to];
-        //this.selectedSpace = newSpace;
-
-        //// if active (source space) is panelMonitor update indicator
-        //if (currentSpace.monitor === Topbar.panelMonitor()) {
-        //    Topbar.updateWorkspaceIndicator(newSpace.index);
-        //}
-
-        //const scale = 0.825;
-        //const padding_percentage = 4;
-        //let last = monitorSpaces.length - 1;
-        //monitorSpaces.forEach((space, i) => {
-        //    // need to set monitor here so it shows up during selection, when it
-        //    // was previously on another monitor
-        //    space.setMonitor(currentSpace.monitor, false, { commit: false });
-
-        //    let padding = (space.height * scale / 100) * padding_percentage;
-        //    let center = (space.height - (space.height * scale)) / 2;
-        //    let space_y;
-        //    if (to === 0) {
-        //        space_y = padding + (space.height + padding) * (i - to) * scale;
-        //    } else if (to === last) {
-        //        space_y = (center * 2 - padding) + (space.height + padding) * (i - to) * scale;
-        //    } else {
-        //        space_y = center + (space.height + padding) * (i - to) * scale;
-        //    }
-
-        //    space.show();
-        //    Easer.addEase(space.actor, {
-        //        y: space_y,
-        //        time: Settings.prefs.animation_time,
-        //        scale_x: scale,
-        //        scale_y: scale,
-        //    });
-        //});
-        
+        this.switchWorkspace(_, from, to, true)
     }
 
     initWorkspaceStack() {
@@ -4168,7 +4096,7 @@ export function insertWindow(metaWindow, options = {}) {
         if (!newspace) {
             Main.notify(
                 `PaperWM [winprop]: cannot open window on workspace ${overwriteSpace} (index)`,
-                `"${metaWindow?.title}" cannot be opened on workspace with index ${overwriteSpace} 
+                `"${metaWindow?.title}" cannot be opened on workspace with index ${overwriteSpace}
 (workspace not found). Opening on current workspace instead.`
             );
             console.warn("#winprops", `overwriteSpace with index ${overwriteSpace} does not exist. \
@@ -5444,7 +5372,7 @@ export function selectUpSpace(mw, space, fromAllMonitors) {
 
 export function selectNthWorkspace(mw, space, n) {
     console.log("Select Nth Workspaced with n = " + n);
-    spaces.jumpToNthWorksapce(mw, n);
+    spaces.jumpToNthWorksapce(n);
 }
 
 export function switchDownOrElseWorkspace(mw, space) {
