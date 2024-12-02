@@ -297,16 +297,16 @@ export class Space extends Array {
         signals.connect(workspaceIndicator, 'scroll-event', (_actor, event) => {
             const direction = event.get_scroll_direction();
             switch (direction) {
-            case Clutter.ScrollDirection.DOWN:
-                spaces.selectSequenceSpace(Meta.MotionDirection.DOWN);
-                Navigator.getNavigator().finish();
-                return Clutter.EVENT_STOP;
-            case Clutter.ScrollDirection.UP:
-                spaces.selectSequenceSpace(Meta.MotionDirection.UP);
-                Navigator.getNavigator().finish();
-                return Clutter.EVENT_STOP;
-            default:
-                return Clutter.EVENT_STOP;
+                case Clutter.ScrollDirection.DOWN:
+                    spaces.selectSequenceSpace(Meta.MotionDirection.DOWN);
+                    Navigator.getNavigator().finish();
+                    return Clutter.EVENT_STOP;
+                case Clutter.ScrollDirection.UP:
+                    spaces.selectSequenceSpace(Meta.MotionDirection.UP);
+                    Navigator.getNavigator().finish();
+                    return Clutter.EVENT_STOP;
+                default:
+                    return Clutter.EVENT_STOP;
             }
         });
         this.workspaceIndicator = workspaceIndicator;
@@ -682,30 +682,30 @@ export class Space extends Array {
         const panelBoxHeight = Topbar.panelBox.height;
         const primaryMonitor = Main.layoutManager.primaryMonitor;
         switch (true) {
-        case this.selectedWindow?.fullscreen:
-            workArea.y = 0;
-            this.setSpaceTopbarElementsVisible(false);
-            break;
-        case this.monitor === primaryMonitor: {
-            if (!this.showTopBar) {
-                // remove panelbox height
-                workArea.y -= panelBoxHeight;
-                workArea.height += panelBoxHeight;
+            case this.selectedWindow?.fullscreen:
+                workArea.y = 0;
+                this.setSpaceTopbarElementsVisible(false);
+                break;
+            case this.monitor === primaryMonitor: {
+                if (!this.showTopBar) {
+                    // remove panelbox height
+                    workArea.y -= panelBoxHeight;
+                    workArea.height += panelBoxHeight;
 
+                    if (this.showPositionBar) {
+                        // add panelbox height if need to show window position bar
+                        workArea.y += panelBoxHeight;
+                        workArea.height -= panelBoxHeight;
+                    }
+                }
+                break;
+            }
+            default:
                 if (this.showPositionBar) {
-                    // add panelbox height if need to show window position bar
                     workArea.y += panelBoxHeight;
                     workArea.height -= panelBoxHeight;
                 }
-            }
-            break;
-        }
-        default:
-            if (this.showPositionBar) {
-                workArea.y += panelBoxHeight;
-                workArea.height -= panelBoxHeight;
-            }
-            break;
+                break;
         }
 
         let availableHeight = workArea.height;
@@ -1068,18 +1068,18 @@ export class Space extends Array {
         let targetIndex = index;
         let targetRow = row;
         switch (direction) {
-        case Meta.MotionDirection.LEFT:
-            targetIndex--;
-            break;
-        case Meta.MotionDirection.RIGHT:
-            targetIndex++;
-            break;
-        case Meta.MotionDirection.DOWN:
-            targetRow++;
-            break;
-        case Meta.MotionDirection.UP:
-            targetRow--;
-            break;
+            case Meta.MotionDirection.LEFT:
+                targetIndex--;
+                break;
+            case Meta.MotionDirection.RIGHT:
+                targetIndex++;
+                break;
+            case Meta.MotionDirection.DOWN:
+                targetRow++;
+                break;
+            case Meta.MotionDirection.UP:
+                targetRow--;
+                break;
         }
         let column = this[index];
         if (targetIndex < 0 || targetIndex >= this.length ||
@@ -1135,13 +1135,13 @@ export class Space extends Array {
         }
         let row = space[index].indexOf(space.selectedWindow);
         switch (direction) {
-        case Meta.MotionDirection.RIGHT:
-            index++;
-            row = -1;
-            break;
-        case Meta.MotionDirection.LEFT:
-            index--;
-            row = -1;
+            case Meta.MotionDirection.RIGHT:
+                index++;
+                row = -1;
+                break;
+            case Meta.MotionDirection.LEFT:
+                index--;
+                row = -1;
         }
         if (loop) {
             if (index < 0) {
@@ -1162,11 +1162,11 @@ export class Space extends Array {
         }
 
         switch (direction) {
-        case Meta.MotionDirection.UP:
-            row--;
-            break;
-        case Meta.MotionDirection.DOWN:
-            row++;
+            case Meta.MotionDirection.UP:
+                row--;
+                break;
+            case Meta.MotionDirection.DOWN:
+                row++;
         }
         if (loop) {
             if (row < 0) {
@@ -1197,11 +1197,11 @@ export class Space extends Array {
         let row = space[index].indexOf(space.selectedWindow);
 
         switch (direction) {
-        case Meta.MotionDirection.RIGHT:
-            index++;
-            break;
-        case Meta.MotionDirection.LEFT:
-            index--;
+            case Meta.MotionDirection.RIGHT:
+                index++;
+                break;
+            case Meta.MotionDirection.LEFT:
+                index--;
         }
         if (index < 0 || index >= space.length) {
             let monitor = focusMonitor();
@@ -1230,11 +1230,11 @@ export class Space extends Array {
             row = column.length - 1;
 
         switch (direction) {
-        case Meta.MotionDirection.UP:
-            row--;
-            break;
-        case Meta.MotionDirection.DOWN:
-            row++;
+            case Meta.MotionDirection.UP:
+                row--;
+                break;
+            case Meta.MotionDirection.DOWN:
+                row++;
         }
         if (row < 0 || row >= column.length) {
             let monitor = focusMonitor();
@@ -1971,14 +1971,14 @@ border-radius: ${borderWidth}px;
                 }
 
                 switch (dir) {
-                case Clutter.ScrollDirection.LEFT:
-                case Clutter.ScrollDirection.UP:
-                    this.switchLeft(false);
-                    break;
-                case Clutter.ScrollDirection.RIGHT:
-                case Clutter.ScrollDirection.DOWN:
-                    this.switchRight(false);
-                    break;
+                    case Clutter.ScrollDirection.LEFT:
+                    case Clutter.ScrollDirection.UP:
+                        this.switchLeft(false);
+                        break;
+                    case Clutter.ScrollDirection.RIGHT:
+                    case Clutter.ScrollDirection.DOWN:
+                        this.switchRight(false);
+                        break;
                 }
             });
 
@@ -2948,6 +2948,86 @@ export const Spaces = class Spaces extends Map {
                 scale_y: scale,
             });
         });
+    }
+
+    jumpToNthWorksapce(wm, to, move) {
+        // if in stack preview do not run sequence preview
+        let currentSpace = this.activeSpace;
+        let monitorSpaces;
+        monitorSpaces = this._getOrderedSpacesFromAllMonitors(currentSpace.monitor);
+        let from = monitorSpaces.indexOf(this.selectedSpace);
+        this.switchWorkspace(wm, from, to, true)
+
+        return;
+
+        //if (inPreview === PreviewMode.STACK) {
+        //    return;
+        //}
+
+        //let currentSpace = this.activeSpace;
+        //let monitorSpaces;
+        //monitorSpaces = this._getOrderedSpacesFromAllMonitors(currentSpace.monitor);
+        //let from = monitorSpaces.indexOf(this.selectedSpace);
+        //let newSpace = this.selectedSpace;
+       
+        //if (move && this.selectedSpace.selectedWindow) {
+        //    const navigator = Navigator.getNavigator();
+        //    if (!navigator._moving ||
+        //        (Array.isArray(navigator._moving) && navigator._moving.length === 0)) {
+        //        takeWindow(this.selectedSpace.selectedWindow,
+        //            this.selectedSpace,
+        //            { navigator });
+        //    }
+        //}
+
+        //if (to < 0 || to >= monitorSpaces.length) {
+        //    return;
+        //}
+
+        //if (to === from && Easer.isEasing(newSpace.actor)) {
+        //    return;
+        //}
+
+        //if (!inPreview) {
+        //    this.initWorkspaceSequence();
+        //}
+
+        //newSpace = monitorSpaces[to];
+        //this.selectedSpace = newSpace;
+
+        //// if active (source space) is panelMonitor update indicator
+        //if (currentSpace.monitor === Topbar.panelMonitor()) {
+        //    Topbar.updateWorkspaceIndicator(newSpace.index);
+        //}
+
+        //const scale = 0.825;
+        //const padding_percentage = 4;
+        //let last = monitorSpaces.length - 1;
+        //monitorSpaces.forEach((space, i) => {
+        //    // need to set monitor here so it shows up during selection, when it
+        //    // was previously on another monitor
+        //    space.setMonitor(currentSpace.monitor, false, { commit: false });
+
+        //    let padding = (space.height * scale / 100) * padding_percentage;
+        //    let center = (space.height - (space.height * scale)) / 2;
+        //    let space_y;
+        //    if (to === 0) {
+        //        space_y = padding + (space.height + padding) * (i - to) * scale;
+        //    } else if (to === last) {
+        //        space_y = (center * 2 - padding) + (space.height + padding) * (i - to) * scale;
+        //    } else {
+        //        space_y = center + (space.height + padding) * (i - to) * scale;
+        //    }
+
+        //    space.show();
+        //    Easer.addEase(space.actor, {
+        //        y: space_y,
+        //        time: Settings.prefs.animation_time,
+        //        scale_x: scale,
+        //        scale_y: scale,
+        //    });
+        //});
+        
     }
 
     initWorkspaceStack() {
@@ -4149,12 +4229,12 @@ Opening "${metaWindow?.title}" on current space.`);
     const slurpCheck = timeout => {
         let slurpPosition;
         switch (Settings.prefs.open_window_position) {
-        case Settings.OpenWindowPositions.DOWN:
-            slurpPosition = SlurpInsertPosition.BELOW;
-            break;
-        case Settings.OpenWindowPositions.UP:
-            slurpPosition = SlurpInsertPosition.ABOVE;
-            break;
+            case Settings.OpenWindowPositions.DOWN:
+                slurpPosition = SlurpInsertPosition.BELOW;
+                break;
+            case Settings.OpenWindowPositions.UP:
+                slurpPosition = SlurpInsertPosition.ABOVE;
+                break;
         }
 
         if (!slurpPosition) {
@@ -4247,15 +4327,15 @@ export function getOpenWindowPositionIndex(space) {
 
     const pos = Settings.prefs.open_window_position;
     switch (pos) {
-    case Settings.OpenWindowPositions.LEFT:
-        return index;
-    case Settings.OpenWindowPositions.START:
-        return 0;
-    case Settings.OpenWindowPositions.END:
-        // get number of columns in space
-        return space.length + 1;
-    default:
-        return index + 1;
+        case Settings.OpenWindowPositions.LEFT:
+            return index;
+        case Settings.OpenWindowPositions.START:
+            return 0;
+        case Settings.OpenWindowPositions.END:
+            // get number of columns in space
+            return space.length + 1;
+        default:
+            return index + 1;
     }
 }
 
@@ -4479,59 +4559,59 @@ export function move_to(space, metaWindow, options = {}) {
 
 export function grabBegin(metaWindow, type) {
     switch (type) {
-    case Meta.GrabOp.COMPOSITOR:
-    case Meta.GrabOp.FRAME_BUTTON:
-        // Don't handle pushModal grabs and SCD button (close/minimize/etc.) grabs
-        break;
-    case Meta.GrabOp.KEYBOARD_MOVING:
-        inGrab = new Grab.MoveGrab(metaWindow, type);
-        if (!isTiled(metaWindow)) {
-            return;
-        }
+        case Meta.GrabOp.COMPOSITOR:
+        case Meta.GrabOp.FRAME_BUTTON:
+            // Don't handle pushModal grabs and SCD button (close/minimize/etc.) grabs
+            break;
+        case Meta.GrabOp.KEYBOARD_MOVING:
+            inGrab = new Grab.MoveGrab(metaWindow, type);
+            if (!isTiled(metaWindow)) {
+                return;
+            }
 
-        // NOTE: Keyboard grab moves the cursor, but it happens after grab
-        // signals have run. Simply delay the dnd so it will get the correct
-        // pointer coordinates.
-        Utils.later_add(Meta.LaterType.IDLE, () => {
-            inGrab.begin();
-            inGrab.beginDnD();
-        });
-        break;
-    case Meta.GrabOp.MOVING:
-    case Meta.GrabOp.MOVING_UNCONSTRAINED: // introduced in Gnome 44
-        if (!isTiled(metaWindow)) {
-            return;
-        }
+            // NOTE: Keyboard grab moves the cursor, but it happens after grab
+            // signals have run. Simply delay the dnd so it will get the correct
+            // pointer coordinates.
+            Utils.later_add(Meta.LaterType.IDLE, () => {
+                inGrab.begin();
+                inGrab.beginDnD();
+            });
+            break;
+        case Meta.GrabOp.MOVING:
+        case Meta.GrabOp.MOVING_UNCONSTRAINED: // introduced in Gnome 44
+            if (!isTiled(metaWindow)) {
+                return;
+            }
 
-        inGrab = new Grab.MoveGrab(metaWindow, type);
+            inGrab = new Grab.MoveGrab(metaWindow, type);
 
-        if (Utils.getModiferState() & Clutter.ModifierType.CONTROL_MASK) {
-            inGrab.begin();
-            inGrab.beginDnD();
-        } else if (inGrab.initialSpace && inGrab.initialSpace.indexOf(metaWindow) > -1) {
-            inGrab.begin();
-        }
+            if (Utils.getModiferState() & Clutter.ModifierType.CONTROL_MASK) {
+                inGrab.begin();
+                inGrab.beginDnD();
+            } else if (inGrab.initialSpace && inGrab.initialSpace.indexOf(metaWindow) > -1) {
+                inGrab.begin();
+            }
 
-        break;
-    case Meta.GrabOp.RESIZING_NW:
-    case Meta.GrabOp.RESIZING_N:
-    case Meta.GrabOp.RESIZING_NE:
-    case Meta.GrabOp.RESIZING_E:
-    case Meta.GrabOp.RESIZING_SW:
-    case Meta.GrabOp.RESIZING_S:
-    case Meta.GrabOp.RESIZING_SE:
-    case Meta.GrabOp.RESIZING_W:
-    case Meta.GrabOp.KEYBOARD_RESIZING_UNKNOWN:
-    case Meta.GrabOp.KEYBOARD_RESIZING_NW:
-    case Meta.GrabOp.KEYBOARD_RESIZING_N:
-    case Meta.GrabOp.KEYBOARD_RESIZING_NE:
-    case Meta.GrabOp.KEYBOARD_RESIZING_E:
-    case Meta.GrabOp.KEYBOARD_RESIZING_SW:
-    case Meta.GrabOp.KEYBOARD_RESIZING_S:
-    case Meta.GrabOp.KEYBOARD_RESIZING_SE:
-    case Meta.GrabOp.KEYBOARD_RESIZING_W:
-        inGrab = new Grab.ResizeGrab();
-        break;
+            break;
+        case Meta.GrabOp.RESIZING_NW:
+        case Meta.GrabOp.RESIZING_N:
+        case Meta.GrabOp.RESIZING_NE:
+        case Meta.GrabOp.RESIZING_E:
+        case Meta.GrabOp.RESIZING_SW:
+        case Meta.GrabOp.RESIZING_S:
+        case Meta.GrabOp.RESIZING_SE:
+        case Meta.GrabOp.RESIZING_W:
+        case Meta.GrabOp.KEYBOARD_RESIZING_UNKNOWN:
+        case Meta.GrabOp.KEYBOARD_RESIZING_NW:
+        case Meta.GrabOp.KEYBOARD_RESIZING_N:
+        case Meta.GrabOp.KEYBOARD_RESIZING_NE:
+        case Meta.GrabOp.KEYBOARD_RESIZING_E:
+        case Meta.GrabOp.KEYBOARD_RESIZING_SW:
+        case Meta.GrabOp.KEYBOARD_RESIZING_S:
+        case Meta.GrabOp.KEYBOARD_RESIZING_SE:
+        case Meta.GrabOp.KEYBOARD_RESIZING_W:
+            inGrab = new Grab.ResizeGrab();
+            break;
     }
 }
 
@@ -5079,24 +5159,24 @@ export function setFocusMode(mode, space) {
     const selectedWin = space.selectedWindow;
     // if centre also center selectedWindow
     switch (mode) {
-    case FocusModes.CENTER:
-        if (selectedWin) {
-            // check it closer to min or max of workArea
-            const frame = selectedWin.get_frame_rect();
-            const winMidpoint = space.visibleX(selectedWin) + frame.width / 2;
-            const workAreaMidpoint = workArea.width / 2;
-            if (winMidpoint <= workAreaMidpoint) {
-                space.unfocusXPosition = 0;
-            } else {
-                space.unfocusXPosition = workArea.width;
+        case FocusModes.CENTER:
+            if (selectedWin) {
+                // check it closer to min or max of workArea
+                const frame = selectedWin.get_frame_rect();
+                const winMidpoint = space.visibleX(selectedWin) + frame.width / 2;
+                const workAreaMidpoint = workArea.width / 2;
+                if (winMidpoint <= workAreaMidpoint) {
+                    space.unfocusXPosition = 0;
+                } else {
+                    space.unfocusXPosition = workArea.width;
+                }
+                centerWindow(selectedWin);
             }
-            centerWindow(selectedWin);
-        }
-        break;
-    default:
-        // for other modes run a `layout` call to action the mode
-        space.layout();
-        break;
+            break;
+        default:
+            // for other modes run a `layout` call to action the mode
+            space.layout();
+            break;
     }
 
     // if normal and has saved x position from previous
@@ -5225,17 +5305,17 @@ export function slurp(metaWindow, insertAt = SlurpInsertPosition.BOTTOM) {
     // get current direction mode
     const direction = Settings.prefs.open_window_position;
     switch (direction) {
-    case Settings.OpenWindowPositions.LEFT:
-    case Settings.OpenWindowPositions.START:
-        to = index;
-        from = index - 1;
-        break;
-    case Settings.OpenWindowPositions.RIGHT:
-    case Settings.OpenWindowPositions.END:
-    default:
-        to = index;
-        from = index + 1;
-        break;
+        case Settings.OpenWindowPositions.LEFT:
+        case Settings.OpenWindowPositions.START:
+            to = index;
+            from = index - 1;
+            break;
+        case Settings.OpenWindowPositions.RIGHT:
+        case Settings.OpenWindowPositions.END:
+        default:
+            to = index;
+            from = index + 1;
+            break;
     }
 
     metaWindowToSlurp = space[from]?.[0];
@@ -5251,19 +5331,19 @@ export function slurp(metaWindow, insertAt = SlurpInsertPosition.BOTTOM) {
     const spaceTo = space[to];
     const rowIndex = spaceTo.indexOf(metaWindow);
     switch (insertAt) {
-    case SlurpInsertPosition.ABOVE:
-        spaceTo.splice(rowIndex, 0, metaWindowToSlurp);
-        break;
-    case SlurpInsertPosition.BELOW:
-        spaceTo.splice(rowIndex + 1, 0, metaWindowToSlurp);
-        break;
-    case SlurpInsertPosition.TOP:
-        spaceTo.unshift(metaWindowToSlurp);
-        break;
-    case SlurpInsertPosition.BOTTOM:
-    default:
-        spaceTo.push(metaWindowToSlurp);
-        break;
+        case SlurpInsertPosition.ABOVE:
+            spaceTo.splice(rowIndex, 0, metaWindowToSlurp);
+            break;
+        case SlurpInsertPosition.BELOW:
+            spaceTo.splice(rowIndex + 1, 0, metaWindowToSlurp);
+            break;
+        case SlurpInsertPosition.TOP:
+            spaceTo.unshift(metaWindowToSlurp);
+            break;
+        case SlurpInsertPosition.BOTTOM:
+        default:
+            spaceTo.push(metaWindowToSlurp);
+            break;
     }
 
     { // Remove the slurped window
@@ -5310,15 +5390,15 @@ export function barf(metaWindow, expelWindow) {
     let to;
     const direction = Settings.prefs.open_window_position;
     switch (direction) {
-    case Settings.OpenWindowPositions.LEFT:
-    case Settings.OpenWindowPositions.START:
-        to = index; // if left then current index will increment
-        break;
-    case Settings.OpenWindowPositions.RIGHT:
-    case Settings.OpenWindowPositions.END:
-    default:
-        to = index + 1;
-        break;
+        case Settings.OpenWindowPositions.LEFT:
+        case Settings.OpenWindowPositions.START:
+            to = index; // if left then current index will increment
+            break;
+        case Settings.OpenWindowPositions.RIGHT:
+        case Settings.OpenWindowPositions.END:
+        default:
+            to = index + 1;
+            break;
     }
 
     // // remove metawindow from column
@@ -5364,6 +5444,7 @@ export function selectUpSpace(mw, space, fromAllMonitors) {
 
 export function selectNthWorkspace(mw, space, n) {
     console.log("Select Nth Workspaced with n = " + n);
+    spaces.jumpToNthWorksapce(mw, n);
 }
 
 export function switchDownOrElseWorkspace(mw, space) {
@@ -5459,53 +5540,53 @@ export function takeWindow(metaWindow, space, options = {}) {
         Navigator.getActionDispatcher(Clutter.GrabState.KEYBOARD)
             .addKeypressCallback((_modmask, keysym, _event) => {
                 switch (keysym) {
-                case Clutter.KEY_space: {
-                    // remove the last window you got
-                    const pop = navigator._moving.pop();
-                    if (pop) {
-                        changeSpace(pop);
-                        insertWindow(pop, { existing: true, dropping: true });
-                        // make space selectedWindow (keeps index for next insert)
-                        selectedSpace().selectedWindow = pop;
-                        ensureViewport(pop);
+                    case Clutter.KEY_space: {
+                        // remove the last window you got
+                        const pop = navigator._moving.pop();
+                        if (pop) {
+                            changeSpace(pop);
+                            insertWindow(pop, { existing: true, dropping: true });
+                            // make space selectedWindow (keeps index for next insert)
+                            selectedSpace().selectedWindow = pop;
+                            ensureViewport(pop);
+                        }
+                        // return true if this was actioned
+                        return true;
                     }
-                    // return true if this was actioned
-                    return true;
-                }
 
-                // cycle forwards through taken windows
-                case Clutter.KEY_Tab: {
-                    cycler(moving => moving.unshift(moving.pop()));
-                    return true;
-                }
+                    // cycle forwards through taken windows
+                    case Clutter.KEY_Tab: {
+                        cycler(moving => moving.unshift(moving.pop()));
+                        return true;
+                    }
 
-                // cycle backwards through taken windows (shift+tab)
-                case Clutter.KEY_ISO_Left_Tab: {
-                    cycler(moving => moving.push(moving.shift()));
-                    return true;
-                }
+                    // cycle backwards through taken windows (shift+tab)
+                    case Clutter.KEY_ISO_Left_Tab: {
+                        cycler(moving => moving.push(moving.shift()));
+                        return true;
+                    }
 
-                // close all taken windows
-                case Clutter.KEY_q: {
-                    navigator._moving.forEach(w => {
-                        changeSpace(w);
-                        insertWindow(
-                            w,
-                            {
-                                existing: true,
-                                dropping: true,
-                                dropCallback: mw => {
-                                    mw.delete(global.get_current_time());
-                                },
-                            });
-                    });
+                    // close all taken windows
+                    case Clutter.KEY_q: {
+                        navigator._moving.forEach(w => {
+                            changeSpace(w);
+                            insertWindow(
+                                w,
+                                {
+                                    existing: true,
+                                    dropping: true,
+                                    dropCallback: mw => {
+                                        mw.delete(global.get_current_time());
+                                    },
+                                });
+                        });
 
-                    navigator._moving = [];
-                    return true;
-                }
+                        navigator._moving = [];
+                        return true;
+                    }
 
-                default:
-                    return false;
+                    default:
+                        return false;
                 }
             });
 
